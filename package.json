@@ -1,5 +1,5 @@
 {
-  "name": "coffee-point",
+  "name": "cocktail-bar",
   "version": "1.0.0",
   "description": "Cocktail Bar",
   "main": "index.js",
@@ -22,6 +22,10 @@
   "dependencies": {
     "@pixi/filter-glow": "^5.2.1",
     "@pixi/react": "^7.0.3",
+    "crossorigin-webpack-plugin": "^1.0.0",
+    "mobx": "^6.9.0",
+    "mobx-react": "^7.6.0",
+    "pixi-filters": "^5.2.1",
     "pixi.js": "^7.2.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"

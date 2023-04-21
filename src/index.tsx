@@ -1,12 +1,15 @@
 import React from "react";
 import ReactDOM from 'react-dom/client'
-import  App  from "./App";
+import { App } from "./App";
+import { StoreContext, store } from "./store/store";
 import "./style.css";
 
 const root = ReactDOM.createRoot(document.getElementById('root')!);
 root.render(
   <React.StrictMode>
-    <App />
+    <StoreContext.Provider value={store}>
+      <App />
+    </StoreContext.Provider>
     <audio src="./assets/Game-Over-final.mp3" loop autoPlay />
   </React.StrictMode>
 );
