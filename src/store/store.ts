@@ -1,9 +1,10 @@
-import { makeAutoObservable } from "mobx";
+import { action, makeAutoObservable } from "mobx";
 import React from "react";
 import { IAppStore, IGameStore, IHomePageStore, IImageStore, IRulesStore } from "../utils/interfaces";
 import { createGlowFilter } from "../utils/createStyles";
 import { GlowFilter } from "@pixi/filter-glow";
-import { createRectangles } from "../utils/createRectangles";
+import { Texture } from "pixi.js";
+import { getRandomSlot } from "../utils/getRandomSlots";
 
 export class Store {
   public ImageStore: IImageStore;
@@ -165,15 +166,25 @@ export class Store {
     }
   }
 
+  // generate slots textures for slots
+  public generateSlotsTextures = () => {
+    for (let i = 0; i < 5; i++) {
+      this.GameStore.slots.push([Texture.from(getRandomSlot()), Texture.from(getRandomSlot()), Texture.from(getRandomSlot()), Texture.from(getRandomSlot()), Texture.from(getRandomSlot())]);
+    }
+  }
+
   // Spin
   public spin = () => {
     this.GameStore.balance = Number((this.GameStore.balance - this.GameStore.stake).toFixed(2));
     this.GameStore.isActive = true;
-    setTimeout(() => {
-      this.GameStore.isActive = false;
-    }, 1000);
+    this.GameStore.slots = [];
+    setTimeout(
+      action(() => {
+        this.GameStore.isActive = false;
+      }),
+      1000
+    );
   }
-
 }
 
 export const StoreContext = React.createContext<Store | null>(null);

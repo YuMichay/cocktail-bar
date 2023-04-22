@@ -17,7 +17,7 @@ export const Stake = observer(({ImageStore, AppStore, GameStore, handleIncrease,
   const positionX = AppStore.width > 768 ? 140 : 40;
 
   return (
-    <Container position={[AppStore.width > 426 ? positionX : AppStore.width / 2 - 80, AppStore.height - 70]} alpha={GameStore.isMenuOpen || GameStore.isHelpOpen ? 0.5 : 1}>
+    <Container position={[AppStore.width > 426 ? positionX : AppStore.width / 2 - 80, AppStore.height - 70]}>
       <Graphics
           draw={(g) => {
             g.beginFill(0x000000, 0.7);

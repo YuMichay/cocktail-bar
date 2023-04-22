@@ -1,4 +1,4 @@
-import { Text } from "@pixi/react";
+import { Container, Text } from "@pixi/react";
 import { createTextStyle } from "../../utils/createStyles";
 import { observer } from "mobx-react";
 import { useStore } from "../../store/store";
@@ -11,9 +11,9 @@ export const Balance = observer(() => {
   const positionX = AppStore.width > 768 ? 140 : 40;
 
   return (
-    <>
-      <Text text="BALANCE" style={textBalanceStyle} x={positionX} y={10} />
-      <Text text={text} style={textAmountStyle} x={positionX} y={30} />
-    </>
+    <Container position={[positionX, 10]}>
+      <Text text="BALANCE" style={textBalanceStyle} />
+      <Text text={text} style={textAmountStyle} y={20} />
+    </Container>
   );
 })

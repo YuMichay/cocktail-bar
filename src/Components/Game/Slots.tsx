@@ -1,14 +1,14 @@
 import { Container, Graphics, Sprite } from "@pixi/react";
-import { createGlowFilter } from "./createStyles";
-import { Texture } from "pixi.js";
-import { getRandomSlot } from "./getRandomSlots";
-import { useStore } from "../store/store";
+import { useStore } from "../../store/store";
+import { createGlowFilter } from "../../utils/createStyles";
+import { observer } from "mobx-react";
 
-export const createRectangles = () => {
-  const { AppStore } = useStore();
-  const rects = [];
+export const Slots = observer(() => {
+  const { AppStore, GameStore, generateSlotsTextures } = useStore();
+  const rects: JSX.Element[] = [];
   const glowImageFilter = createGlowFilter(2, 0x000000);
   const rectSize = AppStore.width > 630 && AppStore.width > 425 ? 120 : AppStore.width > 425 ? 80 : 50;
+  generateSlotsTextures();
 
   for (let row = 0; row < 5; row++) {
     for (let column = 0; column < 5; column++) {
@@ -22,7 +22,7 @@ export const createRectangles = () => {
             }}
           />
           <Sprite
-            texture={Texture.from(getRandomSlot())}
+            texture={GameStore.slots[row][column]}
             width={rectSize}
             height={rectSize}
             filters={[glowImageFilter]}
@@ -31,5 +31,5 @@ export const createRectangles = () => {
       );
     }
   }
-  return rects;
-};
+  return ( <>{rects}</> );
+});

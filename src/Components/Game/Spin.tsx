@@ -14,7 +14,7 @@ export const Spin = observer(({AppStore, GameStore, spin}: SpinProps) => {
   const positionX = AppStore.width > 768 ? AppStore.width - 240 : AppStore.width - 140;
 
   return (
-    <Container anchor={0.5} position={AppStore.width > 426 ? [positionX, AppStore.height - 110] : [AppStore.width / 2, AppStore.height - 200]} alpha={GameStore.isMenuOpen || GameStore.isHelpOpen ? 0.5 : 1}>
+    <Container anchor={0.5} position={AppStore.width > 426 ? [positionX, AppStore.height - 114] : [AppStore.width / 2, AppStore.height - 200]}>
       <Graphics
         draw={(g) => {
           g.clear();
@@ -23,7 +23,7 @@ export const Spin = observer(({AppStore, GameStore, spin}: SpinProps) => {
           g.endFill();
         }}
         cursor={GameStore.isMenuOpen || GameStore.isHelpOpen ? "auto" : "pointer"}
-        filters={(GameStore.isMenuOpen || GameStore.isHelpOpen) ? null : [createGlowFilter(3)]}
+        filters={(GameStore.isMenuOpen || GameStore.isHelpOpen || GameStore.isActive) ? null : [createGlowFilter(3)]}
         interactive={!GameStore.isMenuOpen && !GameStore.isHelpOpen && !GameStore.isActive}
         pointerdown={spin}
       />

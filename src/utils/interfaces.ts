@@ -1,4 +1,5 @@
 import { GlowFilter } from "@pixi/filter-glow";
+import { Resource, Texture } from "pixi.js";
 
 export interface IImageStore {
   images: {
@@ -43,7 +44,7 @@ export interface IGameStore {
   isVolumeOn: boolean;
   volumeCurrentImage: string;
   menuCurrentImage: string;
-  slots: JSX.Element[];
+  slots: Texture<Resource>[][];
   isActive: boolean;
 }
 
