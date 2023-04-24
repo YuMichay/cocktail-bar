@@ -3,21 +3,23 @@ import { observer } from "mobx-react";
 import { createTextStyle } from "../../utils/createStyles";
 import { Texture } from "pixi.js";
 import { IAppStore, IGameStore, IImageStore } from "../../utils/interfaces";
+import { useStore } from "../../store/store";
 
-interface StakeProps {
-  ImageStore: IImageStore;
-  AppStore: IAppStore;
-  GameStore: IGameStore;
-  handleIncrease: () => void;
-  handleDecrease: () => void;
-}
+// interface StakeProps {
+//   ImageStore: IImageStore;
+//   AppStore: IAppStore;
+//   GameStore: IGameStore;
+//   handleIncrease: () => void;
+//   handleDecrease: () => void;
+// }
 
-export const Stake = observer(({ImageStore, AppStore, GameStore, handleIncrease, handleDecrease}: StakeProps) => {
+export const Stake = observer(() => {
+  const { ImageStore, AppStore, GameStore, handleIncrease, handleDecrease } = useStore();
   const textStyle = createTextStyle("boldString");
-  const positionX = AppStore.width > 768 ? 140 : 40;
+  const positionX = AppStore.width > 1024 ? 140 : 40;
 
   return (
-    <Container position={[AppStore.width > 426 ? positionX : AppStore.width / 2 - 80, AppStore.height - 70]}>
+    <Container position={[AppStore.width > 768 ? positionX : AppStore.width / 2 - 80, AppStore.height - 70]}>
       <Graphics
           draw={(g) => {
             g.beginFill(0x000000, 0.7);

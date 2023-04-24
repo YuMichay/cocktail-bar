@@ -25,6 +25,7 @@ export interface IImageStore {
 export interface IAppStore {
   width: number;
   height: number;
+  isLoading: boolean;
   isPlayClicked: boolean;
 }
 
@@ -38,16 +39,28 @@ export interface IHomePageStore {
 export interface IGameStore {
   balance: number;
   stake: number;
+  win: string;
   isMenuOpen: boolean;
   isHelpOpen: boolean;
   isFullscreenOn: boolean;
   isVolumeOn: boolean;
   volumeCurrentImage: string;
   menuCurrentImage: string;
+  isLoaded: boolean,
   slots: Texture<Resource>[][];
+  slotsIds: number[];
+  winImages: ImageCount;
   isActive: boolean;
+  isPinkGirlActive: boolean;
+  isRedGirlActive: boolean;
+  isYellowGirlActive: boolean;
+  slotsCosts: number[];
 }
 
 export interface IRulesStore {
   page: number;
+}
+
+export interface ImageCount {
+  [key: string]: number;
 }

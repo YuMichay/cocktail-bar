@@ -1,4 +1,4 @@
-import { Container, Graphics } from "@pixi/react";
+import { Container, Graphics  } from "@pixi/react";
 import { Balance } from "../Header/Balance";
 import { Volume } from "../Header/Volume";
 import { FullScreen } from "../Header/FullScreen";
@@ -8,13 +8,14 @@ import { Field } from "./Field";
 import { StoreContext, store, useStore } from "../../store/store";
 import { observer } from "mobx-react";
 import { OpenMenu } from "../Header/Menu/OpenMenu";
+import { Win } from "../Header/Win";
 
 export const Game = observer(() => {
   const { AppStore, GameStore } = useStore();
 
   return (
     <StoreContext.Provider value={store}>
-      <Container anchor={0.5} width={AppStore.width} height={AppStore.height}>
+      <Container>
         <Field />
         <Graphics
           draw={(g) => {
@@ -23,16 +24,19 @@ export const Game = observer(() => {
             g.endFill();
           }}
         />
-        <Balance />
-        {!GameStore.isMenuOpen
-          ? <Container position={[AppStore.width > 768 ? AppStore.width - 260 : AppStore.width - 160, 30]}>
-              <Volume />
-              <FullScreen />
-              <Menu />
-            </Container>
-          : <OpenMenu />
-        }
-        { GameStore.isHelpOpen && <Help /> }
+        <Container>
+          <Balance />
+          <Win />
+          {!GameStore.isMenuOpen
+            ? <Container position={[AppStore.width > 1024 ? AppStore.width - 260 : AppStore.width - 160, 30]}>
+                <Volume />
+                <FullScreen />
+                <Menu />
+              </Container>
+            : <OpenMenu />
+          }
+          { GameStore.isHelpOpen && <Help /> }
+        </Container>
       </Container>
     </StoreContext.Provider>
   );

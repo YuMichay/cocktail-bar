@@ -9,7 +9,7 @@ root.render(
   <React.StrictMode>
     <StoreContext.Provider value={store}>
       <App />
+      <audio src="./assets/Game-Over-final.mp3" loop autoPlay={true}/>
     </StoreContext.Provider>
-    <audio src="./assets/Game-Over-final.mp3" loop autoPlay />
   </React.StrictMode>
 );

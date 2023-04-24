@@ -57,5 +57,13 @@ export const createTextStyle = (type: string) => {
         wordWrap: true,
         breakWords: true,
       });
+    case "winString":
+      return new TextStyle({
+        fontFamily: "Montserrat",
+        fontSize: 26,
+        fill: "transparent",
+        stroke: 0x7ab4ff,
+        strokeThickness: 3,
+      });
   }
 }

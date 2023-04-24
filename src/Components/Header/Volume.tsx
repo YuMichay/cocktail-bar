@@ -2,9 +2,16 @@ import { Sprite } from "@pixi/react";
 import { Texture } from "pixi.js";
 import { useStore } from "../../store/store";
 import { observer } from "mobx-react";
+import React from "react";
 
 export const Volume = observer(() => {
   const { GameStore, handleVolumeOnOff } = useStore();
+
+  React.useEffect(() => {
+    if (GameStore.isVolumeOn) {
+      document.querySelector("audio")?.play();
+    }
+  }, [])
 
   return (
     <Sprite

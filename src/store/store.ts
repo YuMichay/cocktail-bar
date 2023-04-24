@@ -3,8 +3,7 @@ import React from "react";
 import { IAppStore, IGameStore, IHomePageStore, IImageStore, IRulesStore } from "../utils/interfaces";
 import { createGlowFilter } from "../utils/createStyles";
 import { GlowFilter } from "@pixi/filter-glow";
-import { Texture } from "pixi.js";
-import { getRandomSlot } from "../utils/getRandomSlots";
+import { getWinImage } from "../utils/getWinImage";
 
 export class Store {
   public ImageStore: IImageStore;
@@ -40,11 +39,13 @@ export class Store {
         "./assets/yellow-cocktail.png",
         "./assets/pink-girl.png",
         "./assets/red-girl.png",
-        "./assets/yellow-girl.png"]
+        "./assets/yellow-girl.png"
+      ]
     }
     this.AppStore = {
       width: window.innerWidth,
       height: window.innerHeight,
+      isLoading: true,
       isPlayClicked: false,
     };
     this.HomePageStore = {
@@ -56,14 +57,22 @@ export class Store {
     this.GameStore = {
       balance: 100,
       stake: 5,
+      win: "0",
       isMenuOpen: false,
       isHelpOpen: false,
       isFullscreenOn: false,
       isVolumeOn: true,
       volumeCurrentImage: this.ImageStore.images.volumeImage,
       menuCurrentImage: this.ImageStore.images.menuImage,
+      isLoaded: false,
       slots: [],
+      slotsIds: [],
+      winImages: {},
       isActive: false,
+      isPinkGirlActive: false,
+      isRedGirlActive: false,
+      isYellowGirlActive: false,
+      slotsCosts: [ 0.20, 0.40, 0.60, 0.60, 0.60, 1.20, 1.20, 1.20],
     };
     this.RulesStore = { page: 0, };
 
@@ -73,20 +82,18 @@ export class Store {
   // change to GamePage or HomePage by click
   public changePage = () => {
     this.AppStore.isPlayClicked = !this.AppStore.isPlayClicked;
+    this.HomePageStore.isHovered = false;
     if (this.GameStore.isMenuOpen) {
       this.GameStore.isMenuOpen = !this.GameStore.isMenuOpen;
       this.GameStore.menuCurrentImage = this.ImageStore.images.menuImage;
     }
   }
 
-  // general for App
-  public calculateWidth = () => {
+  // resize handler
+  public handleResize = () => {
     this.AppStore.width = window.innerWidth;
-  }
-
-  public calculateHeight = () => {
     this.AppStore.height = window.innerHeight;
-  }
+  };
 
   // glowing border for HomePage image
   public glowFilter(value: GlowFilter) {
@@ -114,6 +121,11 @@ export class Store {
     this.GameStore.isVolumeOn = !this.GameStore.isVolumeOn;
     document.querySelector("audio")!.muted = !this.GameStore.isVolumeOn;
     this.GameStore.volumeCurrentImage = this.GameStore.isVolumeOn ? this.ImageStore.images.volumeImage : this.ImageStore.images.muteImage;
+    if (document.querySelector("audio")!.muted) {
+      document.querySelector("audio")!.pause();
+    } else {
+      document.querySelector("audio")!.play();
+    }
   }
 
   // fullscreen mode on or off by click
@@ -139,6 +151,7 @@ export class Store {
     this.GameStore.menuCurrentImage = this.GameStore.isMenuOpen ? this.ImageStore.images.exitImage : this.ImageStore.images.menuImage;
   }
 
+  // open/close help window
   public openHelp = () => {
     this.handleIsMenuOpen();
     this.GameStore.isHelpOpen = true;
@@ -146,6 +159,7 @@ export class Store {
 
   public closeHelp = () => {
     this.GameStore.isHelpOpen = false;
+    this.RulesStore.page = 0;
   }
 
   // for Help pages
@@ -166,23 +180,66 @@ export class Store {
     }
   }
 
-  // generate slots textures for slots
-  public generateSlotsTextures = () => {
-    for (let i = 0; i < 5; i++) {
-      this.GameStore.slots.push([Texture.from(getRandomSlot()), Texture.from(getRandomSlot()), Texture.from(getRandomSlot()), Texture.from(getRandomSlot()), Texture.from(getRandomSlot())]);
+  // check win sum
+  public checkWin = () => {
+    this.GameStore.winImages = getWinImage(this.GameStore.slotsIds);
+    for (let winImage in this.GameStore.winImages) {
+      let timer = 500;
+      if (+winImage >= 5) {
+        this.useGirlsEffect(winImage);
+        timer = 1000;
+      }
+
+      const formula = this.GameStore.winImages[winImage] < 14 && !this.GameStore.isYellowGirlActive
+      ? +(this.GameStore.winImages[winImage] * this.GameStore.slotsCosts[+winImage]).toFixed(2)
+      : +(this.GameStore.winImages[winImage] * this.GameStore.slotsCosts[+winImage] * 2).toFixed(2);
+
+      setTimeout(
+        action(() => {
+          this.GameStore.balance = +(this.GameStore.balance + formula).toFixed(2);
+          this.GameStore.win = `+${formula} ¤ !`;
+        }), timer
+      );
+
+      if (winImage === "3" && this.GameStore.isRedGirlActive) {
+        this.GameStore.isRedGirlActive = false;
+        this.GameStore.slotsCosts[3] = 0.60;
+      }
+    }
+  }
+
+  // girls effects
+  public useGirlsEffect = (girlsId: string) => {
+    if (girlsId === "5") {
+      this.GameStore.isPinkGirlActive = true; // pink girl
+      this.GameStore.win = "FREE SPIN!";
+    } else if (girlsId === "6") {
+      this.GameStore.isRedGirlActive = true; // red girl
+      this.GameStore.slotsCosts[3] *= 2;
+      this.GameStore.win = "Mulled Wine's cost will be doubled!";
+    } else if (girlsId === "7") {
+      this.GameStore.isYellowGirlActive = true; // yellow girl
+      this.GameStore.win = "Your win is doubled!";
     }
   }
 
   // Spin
   public spin = () => {
-    this.GameStore.balance = Number((this.GameStore.balance - this.GameStore.stake).toFixed(2));
     this.GameStore.isActive = true;
-    this.GameStore.slots = [];
+    this.GameStore.win = "0";
+  
+    if (!this.GameStore.isPinkGirlActive) {
+      this.GameStore.balance = Number((this.GameStore.balance - this.GameStore.stake).toFixed(2));
+    } else {
+      this.GameStore.isPinkGirlActive = false;
+    }
+
+    this.GameStore.slotsIds = [];
+
     setTimeout(
       action(() => {
         this.GameStore.isActive = false;
-      }),
-      1000
+      }), 1000
     );
   }
 }

@@ -31,8 +31,8 @@ export const HomePage = observer(() => {
 
   React.useEffect(() => {
     if (HomePageStore.glowFilter) {
-      HomePageStore.glowFilter.outerStrength = HomePageStore.strength * 5;
-      HomePageStore.glowFilter.innerStrength = HomePageStore.strength * 5;
+      HomePageStore.glowFilter!.outerStrength = HomePageStore.strength * 5;
+      HomePageStore.glowFilter!.innerStrength = HomePageStore.strength * 5;
     }
   }, [HomePageStore.strength, HomePageStore.glowFilter]);
 
