@@ -5,7 +5,7 @@ import { FullScreen } from "../Header/FullScreen";
 import { Menu } from "../Header/Menu/Menu";
 import { Help } from "../Help/Help";
 import { Field } from "./Field";
-import { StoreContext, store, useStore } from "../../store/store";
+import { StoreContext, store, useStore } from "../../stores/store";
 import { observer } from "mobx-react";
 import { OpenMenu } from "../Header/Menu/OpenMenu";
 import { Win } from "../Header/Win";

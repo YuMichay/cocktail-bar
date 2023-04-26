@@ -1,12 +1,12 @@
 import { Container, Graphics, Sprite, Text } from "@pixi/react";
 import { Texture } from "pixi.js";
 import { createTextStyle } from "../../../utils/createStyles";
-import { useStore } from "../../../store/store";
+import { useStore } from "../../../stores/store";
 import { observer } from "mobx-react";
 
 export const OpenMenu = observer(() => {
   const textStyle = createTextStyle("string");
-  const { ImageStore, AppStore, GameStore, changePage, handleIsMenuOpen, openHelp } = useStore();
+  const { ImageStore, AppStore, GameStore, changePage } = useStore();
   const width = AppStore.width > 768 ? 350 : 250;
   const positionX = AppStore.width > 768 ? AppStore.width - 280 : AppStore.width - 180;
   const positionXExit = AppStore.width > 768 ? AppStore.width - 140 : AppStore.width - 40;
@@ -22,7 +22,7 @@ export const OpenMenu = observer(() => {
         g.endFill();
       }}
       eventMode="dynamic"
-      pointerdown={handleIsMenuOpen}
+      pointerdown={GameStore.handleIsMenuOpen}
     />
     <Graphics
       draw={(g) => {
@@ -39,7 +39,7 @@ export const OpenMenu = observer(() => {
       scale={1.2}
       eventMode="dynamic"
       cursor="pointer"
-      pointerdown={handleIsMenuOpen}
+      pointerdown={GameStore.handleIsMenuOpen}
     />
     <Container>
       <Sprite texture={Texture.from(ImageStore.images.homeImage)} x={positionX} y={60} anchor={0.5} />
@@ -64,7 +64,7 @@ export const OpenMenu = observer(() => {
         anchor={0.5}
         eventMode="dynamic"
         cursor="pointer"
-        pointerdown={openHelp}
+        pointerdown={GameStore.openHelp}
       />
     </Container>
   </Container>

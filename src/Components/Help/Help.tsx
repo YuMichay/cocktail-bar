@@ -2,11 +2,11 @@ import { Container, Graphics, Sprite } from "@pixi/react";
 import { Texture } from "pixi.js";
 import { Rules } from "./Rules";
 import { createGlowFilter } from "../../utils/createStyles";
-import { useStore } from "../../store/store";
+import { useStore } from "../../stores/store";
 import { observer } from "mobx-react";
 
 export const Help = observer(() => {
-  const { ImageStore, AppStore, closeHelp } = useStore();
+  const { ImageStore, AppStore, GameStore } = useStore();
 
   return (
     <>
@@ -17,7 +17,7 @@ export const Help = observer(() => {
           g.endFill();
         }}
         interactive={true}
-        pointerdown={closeHelp}
+        pointerdown={GameStore.closeHelp}
       />
       <Container anchor={0.5} position={AppStore.width > 768 ? [AppStore.width / 4, AppStore.height / 4] : [AppStore.width / 6, AppStore.height / 6]}>
         <Graphics
@@ -37,7 +37,7 @@ export const Help = observer(() => {
           scale={1.2}
           interactive={true}
           cursor="pointer"
-          pointerdown={closeHelp}
+          pointerdown={GameStore.closeHelp}
         />
         <Rules />
       </Container>

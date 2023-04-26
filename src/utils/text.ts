@@ -1,7 +1,7 @@
 export const pageText = [
 `FEATURES
 \nEach girl in the game offers a special feature and may trigger it when the winning symbol's color matches the girl's color or you got 7+ girls of the same type.
-\nPink hair girl - FREE SPIN!\nBrunette - DOUBLE MULLED WINE SYMBOL's COST NEXT WIN!\nBlonde - DOUBLE YOUR WIN!
+\nPink hair girl - FREE SPIN!\nBrunette - DOUBLE MULLED WINE SYMBOL's COST NEXT WIN!\nBlonde - DOUBLE WIN!
 \nGIRLS
 \nPink hair girl - 1.20 ¤\nBrunette girl - 1.20 ¤\nBlonde girl - 1.20 ¤`,
 `SYMBOLS

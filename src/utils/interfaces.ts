@@ -1,8 +1,8 @@
 import { GlowFilter } from "@pixi/filter-glow";
-import { Resource, Texture } from "pixi.js";
 
 export interface IImageStore {
   images: {
+    loadingImage: string;
     backgroundImage: string;
     backgroundVerticalImage: string;
     logoImage: string;
@@ -27,6 +27,7 @@ export interface IAppStore {
   height: number;
   isLoading: boolean;
   isPlayClicked: boolean;
+  handleResize: () => void;
 }
 
 export interface IHomePageStore {
@@ -34,6 +35,10 @@ export interface IHomePageStore {
   strength: number;
   isHovered: boolean;
   buttonGlowFilter: null | GlowFilter;
+  setGlowFilter: (value: GlowFilter) => void;
+  changeStrength: (value: number) => void;
+  handleMouseOver: () => void;
+  handleMouseOut: () => void;
 }
 
 export interface IGameStore {
@@ -42,12 +47,12 @@ export interface IGameStore {
   win: string;
   isMenuOpen: boolean;
   isHelpOpen: boolean;
+  page: number;
   isFullscreenOn: boolean;
   isVolumeOn: boolean;
   volumeCurrentImage: string;
   menuCurrentImage: string;
-  isLoaded: boolean,
-  slots: Texture<Resource>[][];
+  slots: string[];
   slotsIds: number[];
   winImages: ImageCount;
   isActive: boolean;
@@ -55,10 +60,20 @@ export interface IGameStore {
   isRedGirlActive: boolean;
   isYellowGirlActive: boolean;
   slotsCosts: number[];
-}
-
-export interface IRulesStore {
-  page: number;
+  slotsAlpha: number;
+  handleVolumeOnOff: () => void;
+  handleFullscreenOnOff: () => void;
+  handleIsFullscreenOn: () => void;
+  handleIsMenuOpen: () => void;
+  openHelp: () => void;
+  closeHelp: () => void;
+  handlePageChange: (page: number) => void;
+  handleIncrease: () => void;
+  handleDecrease: () => void;
+  generateSlotsSources: () => void;
+  interval: () => void;
+  checkWin: () => void;
+  spin: () => void;
 }
 
 export interface ImageCount {

@@ -18,6 +18,6 @@ export const getWinImage = (slotsIds: number[]): ImageCount => {
       repeatedIds[id] = counts[id];
     }
   }
-  
+
   return repeatedIds;
 }

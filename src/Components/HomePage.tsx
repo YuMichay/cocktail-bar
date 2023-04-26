@@ -3,16 +3,16 @@ import { Container, Sprite, Text } from "@pixi/react";
 import { Texture, Ticker } from "pixi.js";
 import { createGlowFilter, createTextStyle } from "../utils/createStyles";
 import { observer } from "mobx-react";
-import { useStore } from "../store/store";
+import { useStore } from "../stores/store";
 
 export const HomePage = observer(() => {
   const buttonStyle = createTextStyle("button");
-  const { ImageStore, AppStore, HomePageStore, changePage, handleMouseOver, handleMouseOut, glowFilter, changeStrength } = useStore();
+  const { ImageStore, AppStore, HomePageStore, changePage } = useStore();
 
   // creation filter for image
   React.useEffect(() => {
     const newGlowFilter = createGlowFilter(0);
-    glowFilter(newGlowFilter);
+    HomePageStore.setGlowFilter(newGlowFilter);
   }, []);
 
   // shimmering effect for image
@@ -20,7 +20,7 @@ export const HomePage = observer(() => {
     const ticker = new Ticker();
     ticker.add(() => {
       const now = Date.now() * 0.001;
-      changeStrength(0.5 + Math.sin(now * 2) * 0.5);
+      HomePageStore.changeStrength(0.5 + Math.sin(now * 2) * 0.5);
     });
     ticker.start();
     return () => {
@@ -52,8 +52,8 @@ export const HomePage = observer(() => {
         interactive={true}
         pointerdown={changePage}
         cursor="pointer"
-        mouseover={handleMouseOver}
-        mouseout={handleMouseOut}
+        mouseover={HomePageStore.handleMouseOver}
+        mouseout={HomePageStore.handleMouseOut}
         filters={HomePageStore.isHovered && HomePageStore.buttonGlowFilter ? [HomePageStore.buttonGlowFilter] : []}
         alpha={0.8}
       >

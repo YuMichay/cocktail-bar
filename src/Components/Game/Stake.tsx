@@ -2,19 +2,10 @@ import { Container, Graphics, Sprite, Text } from "@pixi/react";
 import { observer } from "mobx-react";
 import { createTextStyle } from "../../utils/createStyles";
 import { Texture } from "pixi.js";
-import { IAppStore, IGameStore, IImageStore } from "../../utils/interfaces";
-import { useStore } from "../../store/store";
-
-// interface StakeProps {
-//   ImageStore: IImageStore;
-//   AppStore: IAppStore;
-//   GameStore: IGameStore;
-//   handleIncrease: () => void;
-//   handleDecrease: () => void;
-// }
+import { useStore } from "../../stores/store";
 
 export const Stake = observer(() => {
-  const { ImageStore, AppStore, GameStore, handleIncrease, handleDecrease } = useStore();
+  const { ImageStore, AppStore, GameStore } = useStore();
   const textStyle = createTextStyle("boldString");
   const positionX = AppStore.width > 1024 ? 140 : 40;
 
@@ -36,7 +27,7 @@ export const Stake = observer(() => {
         scale={1.2}
         cursor={GameStore.isMenuOpen || GameStore.isHelpOpen ? "auto" : "pointer"}
         interactive={GameStore.stake >= 0.4 && !GameStore.isMenuOpen && !GameStore.isHelpOpen}
-        pointerdown={handleDecrease}
+        pointerdown={GameStore.handleDecrease}
       />
       <Sprite
         texture={Texture.from(ImageStore.images.plusImage)}
@@ -46,7 +37,7 @@ export const Stake = observer(() => {
         scale={1.2}
         cursor={GameStore.isMenuOpen || GameStore.isHelpOpen ? "auto" : "pointer"}
         interactive={GameStore.stake <= 9.8 && !GameStore.isMenuOpen && !GameStore.isHelpOpen}
-        pointerdown={handleIncrease}
+        pointerdown={GameStore.handleIncrease}
       />
     </Container>
   );

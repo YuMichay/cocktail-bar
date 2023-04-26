@@ -1,18 +1,18 @@
 import { Container, Graphics, Text } from "@pixi/react";
 import { observer } from "mobx-react";
 import { createGlowFilter, createTextStyle } from "../../utils/createStyles";
-import { useStore } from "../../store/store";
+import { useStore } from "../../stores/store";
 import React from "react";
 
 export const Spin = observer(() => {
-  const { AppStore, GameStore, spin, checkWin } = useStore();
+  const { AppStore, GameStore } = useStore();
   const textStyle = createTextStyle("button");
   const positionX = AppStore.width > 1024 ? AppStore.width - 240 : AppStore.width - 120;
   const positionY = AppStore.width > 1024 ? AppStore.height - 114 : AppStore.height - 80;
 
   React.useEffect(() => {
     if (GameStore.isActive) {
-      checkWin();
+      GameStore.checkWin();
     }
   }, [GameStore.isActive])
 
@@ -28,7 +28,7 @@ export const Spin = observer(() => {
         cursor={GameStore.isMenuOpen || GameStore.isHelpOpen ? "auto" : "pointer"}
         filters={(GameStore.isMenuOpen || GameStore.isHelpOpen || GameStore.isActive) ? null : [createGlowFilter(3)]}
         interactive={!GameStore.isMenuOpen && !GameStore.isHelpOpen && !GameStore.isActive}
-        pointerdown={GameStore.balance - GameStore.stake >= 0 ? spin : () => alert("Please, refill your balance!")}
+        pointerdown={GameStore.balance - GameStore.stake >= 0 ? GameStore.spin : () => alert("Please, refill your balance!")}
       />
       <Text
         text={"SPIN"}

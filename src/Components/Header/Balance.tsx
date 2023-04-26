@@ -1,7 +1,7 @@
 import { Container, Text } from "@pixi/react";
 import { createTextStyle } from "../../utils/createStyles";
 import { observer } from "mobx-react";
-import { useStore } from "../../store/store";
+import { useStore } from "../../stores/store";
 
 export const Balance = observer(() => {
   const { AppStore, GameStore } = useStore();

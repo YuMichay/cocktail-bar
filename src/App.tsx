@@ -3,22 +3,22 @@ import { Sprite, Stage } from "@pixi/react";
 import { Texture } from "pixi.js";
 import { HomePage } from "./Components/HomePage";
 import { Game } from "./Components/Game/Game";
-import { StoreContext, useStore } from "./store/store";
+import { StoreContext, useStore } from "./stores/store";
 import { observer } from "mobx-react";
 import { LoadingPage } from "./Components/LoadingPage";
 import { action } from "mobx";
 
 export const App: React.FC = observer(() => {
     const store = useStore();
-    const { ImageStore, AppStore, handleResize } = store;
+    const { ImageStore, AppStore } = store;
     
     // resize listener
-    window.addEventListener("resize", handleResize);
+    window.addEventListener("resize", AppStore.handleResize);
 
     window.onload = action(() => AppStore.isLoading = false);
 
     if (AppStore.isLoading) {
-      return <LoadingPage />;
+      return <StoreContext.Provider value={store}><LoadingPage /></StoreContext.Provider>;
     }
 
     return (

@@ -1,3 +1,7 @@
+import { useStore } from "../stores/store"
+
 export const LoadingPage = () => {
-  return <div className="loading"><img src="../assets/loading.svg" alt="loading"></img></div>
+  const { ImageStore } = useStore();
+
+  return <div className="loading"><img src={`${ImageStore.images.loadingImage}`} alt="loading"></img></div>
 }

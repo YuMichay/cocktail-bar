@@ -1,10 +1,10 @@
 import { Sprite } from "@pixi/react";
 import { Texture } from "pixi.js";
 import { observer } from "mobx-react";
-import { useStore } from "../../../store/store";
+import { useStore } from "../../../stores/store";
 
 export const Menu = observer(() => {
-  const { GameStore, handleIsMenuOpen } = useStore();
+  const { GameStore } = useStore();
 
   return (
     <Sprite
@@ -14,7 +14,7 @@ export const Menu = observer(() => {
       scale={1.2}
       eventMode="dynamic"
       cursor="pointer"
-      pointerdown={handleIsMenuOpen}
+      pointerdown={GameStore.handleIsMenuOpen}
     />
   );
 })

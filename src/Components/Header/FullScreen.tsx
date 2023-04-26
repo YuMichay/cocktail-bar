@@ -1,12 +1,12 @@
 import { Sprite } from "@pixi/react";
 import { Texture } from "pixi.js";
-import { useStore } from "../../store/store";
+import { useStore } from "../../stores/store";
 import { observer } from "mobx-react";
 
 export const FullScreen = observer(() => {
-  const { ImageStore, GameStore, handleFullscreenOnOff, handleIsFullscreenOn } = useStore();
+  const { ImageStore, GameStore } = useStore();
 
-  document.addEventListener("fullscreenchange", handleIsFullscreenOn);
+  document.addEventListener("fullscreenchange", GameStore.handleIsFullscreenOn);
 
   return (
     <Sprite
@@ -16,7 +16,7 @@ export const FullScreen = observer(() => {
       scale={1.2}
       interactive={!GameStore.isMenuOpen}
       cursor={GameStore.isMenuOpen ? "auto" : "pointer"}
-      pointerdown={handleFullscreenOnOff}
+      pointerdown={GameStore.handleFullscreenOnOff}
     />
   );
 })

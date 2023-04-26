@@ -1,11 +1,11 @@
 import { Sprite } from "@pixi/react";
 import { Texture } from "pixi.js";
-import { useStore } from "../../store/store";
+import { useStore } from "../../stores/store";
 import { observer } from "mobx-react";
 import React from "react";
 
 export const Volume = observer(() => {
-  const { GameStore, handleVolumeOnOff } = useStore();
+  const { GameStore } = useStore();
 
   React.useEffect(() => {
     if (GameStore.isVolumeOn) {
@@ -20,7 +20,7 @@ export const Volume = observer(() => {
       scale={1.2}
       interactive={!GameStore.isMenuOpen}
       cursor={GameStore.isMenuOpen ? "auto" : "pointer"}
-      pointerdown={handleVolumeOnOff}
+      pointerdown={GameStore.handleVolumeOnOff}
     />
   );
 });

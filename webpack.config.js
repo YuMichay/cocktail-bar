@@ -9,13 +9,14 @@ module.exports = {
   mode: isDevelopment ? "development" : "production",
   entry: "./src/index.tsx",
   devServer: {
-    hot: true,
+    compress: true,
+    port: 9000
   },
-  target: "web",
   output: {
-    filename: "bundle.[hash].js",
+    filename: "bundle.js",
     path: path.resolve(__dirname, "dist"),
   },
+  devtool: "source-map",
   plugins: [
     new HtmlWebpackPlugin({
       template: "./src/index.html",
@@ -24,7 +25,7 @@ module.exports = {
     }),
     new CopyPlugin({
       patterns: [
-        { from: "src/assets", to: "./assets" },
+        { from: "src/assets", to: "assets" },
       ],
     }),
   ],
@@ -42,10 +43,6 @@ module.exports = {
       {
         test: /\.css$/,
         use: ["style-loader", "css-loader"],
-      },
-      {
-        test: /\.png|svg|jpg|gif|ico|ttf|otf|mp3$/,
-        use: ["file-loader"],
       },
     ],
   },
