@@ -120,12 +120,13 @@ export class GameStore {
     for (let i = 0; i < 25; i++) {
       this.slots.push(getRandomSlot());
     }
+    this.interval();
   }
 
   // slots appearance
   public interval = () => {
     const increment = 0.01;
-    const delay = 10;
+    const delay = 20;
     setInterval(action(() => {
       if (this.slotsAlpha < 1) {
         this.slotsAlpha += increment;

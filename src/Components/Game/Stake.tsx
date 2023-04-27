@@ -1,22 +1,25 @@
 import { Container, Graphics, Sprite, Text } from "@pixi/react";
 import { observer } from "mobx-react";
-import { createTextStyle } from "../../utils/createStyles";
+import { createGlowFilter, createTextStyle } from "../../utils/createStyles";
 import { Texture } from "pixi.js";
 import { useStore } from "../../stores/store";
 
 export const Stake = observer(() => {
   const { ImageStore, AppStore, GameStore } = useStore();
   const textStyle = createTextStyle("boldString");
+  const borderStyle = createGlowFilter(2);
   const positionX = AppStore.width > 1024 ? 140 : 40;
 
   return (
     <Container position={[AppStore.width > 768 ? positionX : AppStore.width / 2 - 80, AppStore.height - 70]}>
       <Graphics
           draw={(g) => {
-            g.beginFill(0x000000, 0.7);
+            g.clear();
+            g.beginFill(0x000000);
             g.drawRoundedRect(0, 0, 160, 60, 25);
             g.endFill();
           }}
+          filters={[borderStyle]}
       />
       <Text text={`Stake:\n ¤ ${GameStore.stake}`} style={textStyle} x={60} y={12}/>
       <Sprite

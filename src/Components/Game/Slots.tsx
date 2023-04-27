@@ -14,8 +14,6 @@ export const Slots = observer(() => {
     GameStore.generateSlotsSources();
   }
 
-  GameStore.interval();
-
   return (
     <Container>
       {GameStore.slots.map((source, index) => {
