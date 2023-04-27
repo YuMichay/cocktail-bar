@@ -137,30 +137,49 @@ export class GameStore {
   public checkWin = () => {
     this.winImages = {};
     this.winImages = getWinImage(this.slotsIds);
+    let win: number[] = [];
     
     for (let winImage in this.winImages) {
       let timer = 500;
+
       if (+winImage >= 5) {
         this.useGirlsEffect(winImage);
         timer = 1000;
       }
 
-      const formula = this.winImages[winImage] < 14 && !this.isYellowGirlActive
+      const formula = this.winImages[winImage] < 14 || !this.isYellowGirlActive
       ? +(this.winImages[winImage] * this.slotsCosts[+winImage]).toFixed(2)
       : +(this.winImages[winImage] * this.slotsCosts[+winImage] * 2).toFixed(2);
 
-      setTimeout(
-        action(() => {
-          this.balance = +(this.balance + formula).toFixed(2);
-          this.win = `+${formula} ¤ !`;
-        }), timer
-      );
+      win.push(formula);
 
       if (winImage === "3" && this.isRedGirlActive) {
         this.isRedGirlActive = false;
         this.slotsCosts[3] = 0.60;
       }
+
+      setTimeout(
+        action(() => {
+          this.balance = +(this.balance + formula).toFixed(2);
+        }), timer
+      );
     }
+    let totalWin = "";
+
+    for (let i = 0; i < win.length; i++) {
+      totalWin += ` +${win[i]} ¤ !`
+    }
+
+    setTimeout(
+      action(() => {
+        if (this.win) {
+          this.win = `${totalWin}`;
+          win = [];
+          totalWin = "";
+        }
+      }), 1000
+    )
+    
   }
 
   // girls effects
@@ -170,7 +189,7 @@ export class GameStore {
       this.win = "FREE SPIN!";
     } else if (girlsId === "6") {
       this.isRedGirlActive = true; // red girl
-      this.slotsCosts[3] *= 2;
+      this.slotsCosts[3] = 1.20;
       this.win = "Mulled Wine's cost will be doubled!";
     } else if (girlsId === "7") {
       this.isYellowGirlActive = true; // yellow girl

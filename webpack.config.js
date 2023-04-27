@@ -1,22 +1,21 @@
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const CopyPlugin = require("copy-webpack-plugin");
 const path = require("path");
-const webpack = require("webpack");
-
-const isDevelopment = process.env.NODE_ENV !== "production";
 
 module.exports = {
-  mode: isDevelopment ? "development" : "production",
+  mode: "development",
   entry: "./src/index.tsx",
   devServer: {
+    static: {
+      directory: path.join(__dirname)
+    },
     compress: true,
-    port: 9000
+    port: 8080
   },
   output: {
     filename: "bundle.js",
     path: path.resolve(__dirname, "dist"),
   },
-  devtool: "source-map",
   plugins: [
     new HtmlWebpackPlugin({
       template: "./src/index.html",
