@@ -20,6 +20,7 @@ export class GameStore {
   public slotsIds: IGameStore["slotsIds"];
   public winImages: IGameStore["winImages"];
   public isActive: IGameStore["isActive"];
+  public isLoaded: IGameStore["isLoaded"];
   public isPinkGirlActive: IGameStore["isPinkGirlActive"];
   public isRedGirlActive: IGameStore["isRedGirlActive"];
   public isYellowGirlActive: IGameStore["isYellowGirlActive"];
@@ -42,6 +43,7 @@ export class GameStore {
     this.slotsIds = [];
     this.winImages = {};
     this.isActive = false;
+    this.isLoaded = false;
     this.isPinkGirlActive = false;
     this.isRedGirlActive = false;
     this.isYellowGirlActive = false;
@@ -51,34 +53,34 @@ export class GameStore {
     makeAutoObservable(this, {}, { autoBind: true });
   }
 
-    // mute/unmute background audio
-    public handleVolumeOnOff = () => {
-      this.isVolumeOn = !this.isVolumeOn;
-      document.querySelector("audio")!.muted = !this.isVolumeOn;
-      this.volumeCurrentImage = this.isVolumeOn ? this.ImageStore.images.volumeImage : this.ImageStore.images.muteImage;
-      if (document.querySelector("audio")!.muted) {
-        document.querySelector("audio")!.pause();
-      } else {
-        document.querySelector("audio")!.play();
-      }
+  // mute/unmute background audio
+  public handleVolumeOnOff = () => {
+    this.isVolumeOn = !this.isVolumeOn;
+    document.querySelector("audio")!.muted = !this.isVolumeOn;
+    this.volumeCurrentImage = this.isVolumeOn ? this.ImageStore.images.volumeImage : this.ImageStore.images.muteImage;
+    if (document.querySelector("audio")!.muted) {
+      document.querySelector("audio")!.pause();
+    } else {
+      document.querySelector("audio")!.play();
     }
+  }
   
-    // fullscreen mode on or off by click
-    public handleFullscreenOnOff = () => {
-      if (!this.isFullscreenOn) {
-        document.querySelector("canvas")!.requestFullscreen();
-      } else {
-        document.exitFullscreen();
-      }
+  // fullscreen mode on or off by click
+  public handleFullscreenOnOff = () => {
+    if (!this.isFullscreenOn) {
+      document.querySelector("canvas")!.requestFullscreen();
+    } else {
+      document.exitFullscreen();
+    }
+    this.isFullscreenOn = !this.isFullscreenOn;
+  }
+  
+  // check if fullscreen mode was changed by browsers key events ("Escape") 
+  public handleIsFullscreenOn = () => {
+    if (window.innerHeight !== window.screen.height && this.isFullscreenOn) {
       this.isFullscreenOn = !this.isFullscreenOn;
     }
-  
-    // check if fullscreen mode was changed by browsers key events ("Escape") 
-    public handleIsFullscreenOn = () => {
-      if (window.innerHeight !== window.screen.height && this.isFullscreenOn) {
-        this.isFullscreenOn = !this.isFullscreenOn;
-      }
-    }
+  }
 
       // open or close Menu
   public handleIsMenuOpen = () => {
@@ -120,6 +122,11 @@ export class GameStore {
     for (let i = 0; i < 25; i++) {
       this.slots.push(getRandomSlot());
     }
+    setTimeout(
+      action(() => {
+        this.isActive = false;
+      }), 2000
+    );
   }
 
   // check win sum

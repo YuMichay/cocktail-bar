@@ -26,8 +26,8 @@ export const Spin = observer(() => {
           g.endFill();
         }}
         cursor={GameStore.isMenuOpen || GameStore.isHelpOpen ? "auto" : "pointer"}
-        filters={(GameStore.isMenuOpen || GameStore.isHelpOpen || GameStore.isActive) ? null : [createGlowFilter(3)]}
-        interactive={!GameStore.isMenuOpen && !GameStore.isHelpOpen && !GameStore.isActive}
+        filters={!GameStore.isMenuOpen && !GameStore.isHelpOpen && !GameStore.isActive && GameStore.isLoaded ? [createGlowFilter(3)] : null}
+        interactive={!GameStore.isMenuOpen && !GameStore.isHelpOpen && !GameStore.isActive && GameStore.isLoaded}
         pointerdown={GameStore.balance - GameStore.stake >= 0 ? GameStore.spin : () => alert("Please, refill your balance!")}
       />
       <Text

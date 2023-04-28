@@ -1,5 +1,4 @@
 import { GlowFilter } from "@pixi/filter-glow";
-
 export interface IImageStore {
   images: {
     loadingImage: string;
@@ -21,7 +20,6 @@ export interface IImageStore {
   };
   slots: string[];
 } 
-
 export interface IAppStore {
   width: number;
   height: number;
@@ -29,7 +27,6 @@ export interface IAppStore {
   isPlayClicked: boolean;
   handleResize: () => void;
 }
-
 export interface IHomePageStore {
   glowFilter: null | GlowFilter;
   strength: number;
@@ -40,7 +37,6 @@ export interface IHomePageStore {
   handleMouseOver: () => void;
   handleMouseOut: () => void;
 }
-
 export interface IGameStore {
   balance: number;
   stake: number;
@@ -56,6 +52,7 @@ export interface IGameStore {
   slotsIds: number[];
   winImages: ImageCount;
   isActive: boolean;
+  isLoaded: boolean;
   isPinkGirlActive: boolean;
   isRedGirlActive: boolean;
   isYellowGirlActive: boolean;
@@ -71,11 +68,9 @@ export interface IGameStore {
   handleIncrease: () => void;
   handleDecrease: () => void;
   generateSlotsSources: () => void;
-  interval: () => void;
   checkWin: () => void;
   spin: () => void;
 }
-
 export interface ImageCount {
   [key: string]: number;
 }

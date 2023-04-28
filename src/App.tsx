@@ -15,7 +15,9 @@ export const App: React.FC = observer(() => {
     // resize listener
     window.addEventListener("resize", AppStore.handleResize);
 
-    window.onload = action(() => AppStore.isLoading = false);
+    setTimeout(action(() => {
+      AppStore.isLoading = false;
+    }), 1000)
 
     if (AppStore.isLoading) {
       return <StoreContext.Provider value={store}><LoadingPage /></StoreContext.Provider>;
