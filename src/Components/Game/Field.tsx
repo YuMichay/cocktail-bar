@@ -10,15 +10,17 @@ export const Field = observer(() => {
   const store = useStore();
   const { AppStore } = store;
   const glowFilter = createGlowFilter(2);
-  const positionX = AppStore.width > 768 ? 302 : AppStore.width > 425 ? 202 : 122;
-  const sizeGraphics = AppStore.width > 768 ? 617 : AppStore.width > 425 ? 417 : 267;
+  const positionY = AppStore.isMediumScreen ? 292 : 212;
+  const positionX = AppStore.isMediumScreen ? 302 : AppStore.isSmallScreen ? 202 : 122;
+  const sizeGraphics = AppStore.isMediumScreen ? 617 : AppStore.isSmallScreen ? 417 : 267;
 
   return (
     <StoreContext.Provider value={store}>
-      <Container anchor={0.5}>
-        <Container position={[AppStore.width / 2 - positionX, AppStore.height / 2 - 292]}>
+      <Container>
+        <Container position={[AppStore.width / 2 - positionX, AppStore.height / 2 - positionY]}>
           <Graphics
             draw={(g) => {
+              g.clear();
               g.beginFill(0x000000);
               g.drawRect(-5, -5, sizeGraphics, sizeGraphics);
               g.endFill();
@@ -27,10 +29,8 @@ export const Field = observer(() => {
           />
           <Slots />
         </Container>
-        <Container>
-          <Stake />
-          <Spin />
-        </Container>
+        <Stake />
+        <Spin />
       </Container>
     </StoreContext.Provider>
   );

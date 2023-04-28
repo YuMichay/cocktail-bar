@@ -1,6 +1,6 @@
 import { GlowFilter } from "@pixi/filter-glow";
 import { ColorMatrixFilter } from "@pixi/filter-color-matrix";
-import { TextStyle } from "pixi.js";
+import { TextStyle, TextStyleFontWeight } from "pixi.js";
 
 export function createGlowFilter(strength: number, color: number = 0xff1694) {
   return new GlowFilter({
@@ -16,7 +16,7 @@ export function createColorMatrixFilter() {
   return new ColorMatrixFilter().brightness(0.8, true);
 }
 
-export const createTextStyle = (type: string) => {
+export const createTextStyle = (type: string, weight?: TextStyleFontWeight, size?: string) => {
   switch(type) {
     case "button":
       return new TextStyle({
@@ -41,18 +41,9 @@ export const createTextStyle = (type: string) => {
     case "string":
       return new TextStyle({
         fontFamily: "Montserrat",
-        fontSize: 16,
+        fontSize: size || 16,
         fill: 0xFFFFFF,
-        wordWrapWidth: window.innerWidth / 2.5,
-        wordWrap: true,
-        breakWords: true,
-      });
-    case "boldString":
-      return new TextStyle({
-        fontFamily: "Montserrat",
-        fontSize: 16,
-        fontWeight: "bold",
-        fill: 0xFFFFFF,
+        fontWeight: weight || "normal",
         wordWrapWidth: window.innerWidth / 2.5,
         wordWrap: true,
         breakWords: true,

@@ -19,6 +19,7 @@ export const Game = observer(() => {
         <Field />
         <Graphics
           draw={(g) => {
+            g.clear();
             g.beginFill(0x000000, 0.7);
             g.drawRect(0, 0, AppStore.width, 60);
             g.endFill();
@@ -28,7 +29,7 @@ export const Game = observer(() => {
           <Balance />
           <Win />
           {!GameStore.isMenuOpen
-            ? <Container position={[AppStore.width > 1024 ? AppStore.width - 260 : AppStore.width - 160, 30]}>
+            ? <Container position={[AppStore.isLargeScreen ? AppStore.width - 260 : AppStore.width - 160, 30]}>
                 <Volume />
                 <FullScreen />
                 <Menu />

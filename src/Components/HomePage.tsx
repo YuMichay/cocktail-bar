@@ -43,12 +43,12 @@ export const HomePage = observer(() => {
         x={AppStore.width / 2}
         y={AppStore.height  / 2 - 50}
         anchor={0.5}
-        scale={AppStore.width < 425 || AppStore.height < 640 ? 0.3 : 0.4}
+        scale={AppStore.isSmallScreen ? 0.4 : 0.3}
         filters={HomePageStore.glowFilter ? [HomePageStore.glowFilter] : []}
       />
       <Container
         x={AppStore.width / 2}
-        y={AppStore.height < 640 ? AppStore.height / 2 + 150 : AppStore.height / 2 + 230}
+        y={AppStore.height / 2 + 230}
         interactive={true}
         pointerdown={changePage}
         cursor="pointer"
@@ -59,7 +59,7 @@ export const HomePage = observer(() => {
       >
         <Sprite
           texture={Texture.WHITE}
-          width={AppStore.width < 768 ? 100 : 200}
+          width={AppStore.isSmallScreen ? 200 : 150}
           height={80}
           anchor={0.5}
           tint={0x12121C}

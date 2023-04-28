@@ -21,4 +21,16 @@ export class AppStore {
     this.width = window.innerWidth;
     this.height = window.innerHeight;
   };
+
+  public get isLargeScreen(): boolean {
+    return this.width > 1024;
+  }
+
+  public get isMediumScreen(): boolean {
+    return this.width > 768;
+  }
+
+  public get isSmallScreen(): boolean {
+    return this.width > 425;
+  }
 }

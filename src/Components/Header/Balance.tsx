@@ -8,7 +8,7 @@ export const Balance = observer(() => {
   const text = `${GameStore.balance} ¤`;
   const textBalanceStyle = createTextStyle("heading");
   const textAmountStyle = createTextStyle("string");
-  const positionX = AppStore.width > 1024 ? 140 : 40;
+  const positionX = AppStore.isLargeScreen ? 140 : 40;
 
   return (
     <Container position={[positionX, 10]}>

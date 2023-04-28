@@ -7,11 +7,11 @@ import { observer } from "mobx-react";
 export const OpenMenu = observer(() => {
   const textStyle = createTextStyle("string");
   const { ImageStore, AppStore, GameStore, changePage } = useStore();
-  const width = AppStore.width > 768 ? 350 : 250;
-  const positionX = AppStore.width > 768 ? AppStore.width - 280 : AppStore.width - 180;
-  const positionXExit = AppStore.width > 768 ? AppStore.width - 140 : AppStore.width - 40;
-  const positionXHome = AppStore.width > 768 ? AppStore.width - 240 : AppStore.width - 140;
-  const positionXHelp = AppStore.width > 768 ? AppStore.width - 245 : AppStore.width - 145;
+  const width = AppStore.isMediumScreen ? 350 : 250;
+  const positionX = AppStore.isMediumScreen ? AppStore.width - 280 : AppStore.width - 180;
+  const positionXExit = AppStore.isMediumScreen ? AppStore.width - 140 : AppStore.width - 40;
+  const positionXHome = AppStore.isMediumScreen ? AppStore.width - 240 : AppStore.width - 140;
+  const positionXHelp = AppStore.isMediumScreen ? AppStore.width - 245 : AppStore.width - 145;
 
   return (
   <Container>

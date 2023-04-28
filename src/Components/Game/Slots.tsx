@@ -10,7 +10,7 @@ import { action } from "mobx";
 export const Slots = observer(() => {
   const { ImageStore, AppStore, GameStore } = useStore();
   const slotsContainerRef = React.useRef<ContainerPixi>(null);
-  let rectSize = AppStore.width > 768 ? 120 : AppStore.width > 425 ? 80 : 50;
+  let rectSize = AppStore.isMediumScreen ? 120 : AppStore.isSmallScreen ? 80 : 50;
   const glowFilter = [createGlowFilter(2, 0x000000)];
   const winGlowFilter = [createGlowFilter(2)];
 

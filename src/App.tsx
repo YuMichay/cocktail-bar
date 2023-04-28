@@ -10,7 +10,11 @@ import { action } from "mobx";
 
 export const App: React.FC = observer(() => {
     const store = useStore();
-    const { ImageStore, AppStore } = store;
+    const { ImageStore, AppStore, GameStore } = store;
+
+    if (GameStore.isVolumeOn) {
+      document.querySelector("audio")?.play();
+    }
     
     // resize listener
     window.addEventListener("resize", AppStore.handleResize);
@@ -26,7 +30,7 @@ export const App: React.FC = observer(() => {
     return (
       <div className="app">
         <Stage width={AppStore.width} height={AppStore.height} options={{ autoStart: true }}>
-          <Sprite width={AppStore.width} height={AppStore.height} texture={Texture.from(AppStore.width > 768 ? ImageStore.images.backgroundImage : ImageStore.images.backgroundVerticalImage)} />
+          <Sprite width={AppStore.width} height={AppStore.height} texture={Texture.from(AppStore.isMediumScreen ? ImageStore.images.backgroundImage : ImageStore.images.backgroundVerticalImage)} />
           <StoreContext.Provider value={store}>
             { !AppStore.isPlayClicked
               ? <HomePage />

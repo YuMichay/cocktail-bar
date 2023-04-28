@@ -26,6 +26,9 @@ export interface IAppStore {
   isLoading: boolean;
   isPlayClicked: boolean;
   handleResize: () => void;
+  isLargeScreen: boolean;
+  isMediumScreen: boolean;
+  isSmallScreen: boolean;
 }
 export interface IHomePageStore {
   glowFilter: null | GlowFilter;
