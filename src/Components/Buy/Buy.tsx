@@ -8,7 +8,6 @@ export const Buy = observer(() => {
   const { ImageStore, AppStore, GameStore } = useStore();
   const buttonStyle = AppStore.isSmallScreen ? createTextStyle("button") : createTextStyle("button", 30);
   const textStyle = createTextStyle("string", 26, "bold");
-  const positionX = AppStore.isLargeScreen ? 140 : 40;
 
   return (
     <>
@@ -44,7 +43,7 @@ export const Buy = observer(() => {
           pointerdown={GameStore.closeBuy}
         />
       </Container>
-      <Container position={[AppStore.isMediumScreen ? positionX : AppStore.width / 2 - 80, AppStore.height / 2 - 80]}>
+      <Container anchor={0.5} position={[AppStore.width / 2 - 80, AppStore.height / 2 - 80]}>
         <Text text={`${GameStore.buySum}`} anchor={0.5} style={textStyle} x={80} y={30} />
         <Sprite
           texture={Texture.from(ImageStore.images.minusImage)}
