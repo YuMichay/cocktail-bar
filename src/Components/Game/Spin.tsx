@@ -17,7 +17,7 @@ export const Spin = observer(() => {
   }, [GameStore.isActive])
 
   return (
-    <Container anchor={0.5} position={AppStore.isMediumScreen ? [positionX, positionY] : AppStore.isSmallScreen ? [AppStore.width / 2, AppStore.height - 160] : [AppStore.width / 2, AppStore.height - 200]}>
+    <Container anchor={0.5} position={AppStore.isMediumScreen ? [positionX, positionY] : [AppStore.width / 2, AppStore.height - 130]}>
       <Graphics
         draw={(g) => {
           g.clear();

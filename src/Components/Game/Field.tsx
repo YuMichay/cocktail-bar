@@ -10,7 +10,7 @@ export const Field = observer(() => {
   const store = useStore();
   const { AppStore } = store;
   const glowFilter = createGlowFilter(2);
-  const positionY = AppStore.isMediumScreen ? 292 : 212;
+  const positionY = AppStore.isMediumScreen ? 292 : 192;
   const positionX = AppStore.isMediumScreen ? 302 : AppStore.isSmallScreen ? 202 : 122;
   const sizeGraphics = AppStore.isMediumScreen ? 617 : AppStore.isSmallScreen ? 417 : 267;
 

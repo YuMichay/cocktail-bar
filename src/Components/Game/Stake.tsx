@@ -11,7 +11,7 @@ export const Stake = observer(() => {
   const positionX = AppStore.isLargeScreen ? 140 : 40;
 
   return (
-    <Container position={[AppStore.isMediumScreen ? positionX : AppStore.width / 2 - 80, AppStore.isSmallScreen ? AppStore.height - 70 : AppStore.height - 120]}>
+    <Container position={[AppStore.isMediumScreen ? positionX : AppStore.width / 2 - 80, AppStore.height - 70]}>
       <Graphics
           draw={(g) => {
             g.clear();
