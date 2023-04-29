@@ -12,8 +12,8 @@ export const pageText = [
 \nThe Total Stake is the total of stakes per line. You can adjust it at any time, using the + or - buttons.`,
 `PRIZE VALUE
 \n7 or more symbols or girls of the same type pay anywhere on the screen. The value of the win is determined by the total number of the same symbols shown on the screen at the end of a spin.
-\n7+ symbols: symbol's amount * symbol's cost\n14+ symbols: symbol's amount * double symbol's cost
-\n7+ girls: girl's amount * girls's cost\n14+ girls: girl's amount * double girl's cost
+\n7+ symbols: symbol's amount * symbol's cost + a half of your stake\n14+ symbols: symbol's amount * double symbol's cost + a half of your stake
+\n7+ girls: girl's amount * girls's cost + a half of your stake\n14+ girls: girl's amount * double girl's cost + a half of your stake
 \nMinimal stake: ¤ 0.20\nMaximal stake: ¤ 10`];
 
 export const smallPageText = [
@@ -30,6 +30,6 @@ export const smallPageText = [
   \nThe Total Stake is the total of stakes per line. You can adjust it at any time, using the + or - buttons.`,
   `PRIZE VALUE
   \n7 or more symbols or girls of the same type pay anywhere on the screen. The value of the win is determined by the total number of the same symbols shown on the screen at the end of a spin.`,
-  `\n7+ symbols: symbol's amount * symbol's cost\n14+ symbols: symbol's amount * double symbol's cost
-  \n7+ girls: girl's amount * girls's cost\n14+ girls: girl's amount * double girl's cost
+  `\n7+ symbols: symbol's amount * symbol's cost + a half of your stake\n14+ symbols: symbol's amount * double symbol's cost + a half of your stake
+  \n7+ girls: girl's amount * girls's cost + a half of your stake\n14+ girls: girl's amount * double girl's cost + a half of your stake
   \nMinimal stake: ¤ 0.20\nMaximal stake: ¤ 10`];

@@ -136,16 +136,13 @@ export class GameStore {
     let win: number[] = [];
     
     for (let winImage in this.winImages) {
-      let timer = 500;
-
       if (+winImage >= 5) {
         this.useGirlsEffect(winImage);
-        timer = 1000;
       }
 
       const formula = this.winImages[winImage] < 14 || !this.isYellowGirlActive
-      ? +(this.winImages[winImage] * this.slotsCosts[+winImage]).toFixed(2)
-      : +(this.winImages[winImage] * this.slotsCosts[+winImage] * 2).toFixed(2);
+      ? +(this.winImages[winImage] * this.slotsCosts[+winImage] + this.stake / 2).toFixed(2)
+      : +(this.winImages[winImage] * this.slotsCosts[+winImage] * 2 + this.stake / 2).toFixed(2);
 
       win.push(formula);
 
@@ -157,7 +154,7 @@ export class GameStore {
       setTimeout(
         action(() => {
           this.balance = +(this.balance + formula).toFixed(2);
-        }), timer
+        }), 2000
       );
     }
     let totalWin = "";
