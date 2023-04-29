@@ -16,12 +16,12 @@ export function createColorMatrixFilter() {
   return new ColorMatrixFilter().brightness(0.8, true);
 }
 
-export const createTextStyle = (type: string, weight?: TextStyleFontWeight, size?: string) => {
+export const createTextStyle = (type: string, size?: number, weight?: TextStyleFontWeight) => {
   switch(type) {
     case "button":
       return new TextStyle({
         fontFamily: "Montserrat",
-        fontSize: 36,
+        fontSize: size ? size : 36,
         fill: "transparent",
         stroke: 0x7ab4ff,
         strokeThickness: 3,
@@ -41,9 +41,9 @@ export const createTextStyle = (type: string, weight?: TextStyleFontWeight, size
     case "string":
       return new TextStyle({
         fontFamily: "Montserrat",
-        fontSize: size || 16,
+        fontSize: size ? size : 16,
         fill: 0xFFFFFF,
-        fontWeight: weight || "normal",
+        fontWeight: weight ? weight : "normal",
         wordWrapWidth: window.innerWidth / 2.5,
         wordWrap: true,
         breakWords: true,
@@ -51,7 +51,7 @@ export const createTextStyle = (type: string, weight?: TextStyleFontWeight, size
     case "winString":
       return new TextStyle({
         fontFamily: "Montserrat",
-        fontSize: 26,
+        fontSize: size ? size : 26,
         fill: "transparent",
         stroke: 0x7ab4ff,
         strokeThickness: 3,

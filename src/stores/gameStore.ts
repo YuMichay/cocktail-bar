@@ -8,9 +8,11 @@ export class GameStore {
   public ImageStore: IImageStore;
   public balance: IGameStore["balance"];
   public stake: IGameStore["stake"];
+  public buySum: IGameStore["buySum"];
   public win: IGameStore["win"];
   public isMenuOpen: IGameStore["isMenuOpen"];
   public isHelpOpen: IGameStore["isHelpOpen"];
+  public isBuyOpen: IGameStore["isBuyOpen"];
   public page: IGameStore["page"];
   public isFullscreenOn: IGameStore["isFullscreenOn"];
   public isVolumeOn: IGameStore["isVolumeOn"];
@@ -31,9 +33,11 @@ export class GameStore {
     this.ImageStore = new ImageStore();
     this.balance = 100;
     this.stake = 5;
+    this.buySum = 100;
     this.win = "0";
     this.isMenuOpen = false;
     this.isHelpOpen = false;
+    this.isBuyOpen = false;
     this.page = 0;
     this.isFullscreenOn = false;
     this.isVolumeOn = true;
@@ -99,6 +103,16 @@ export class GameStore {
     this.page = 0;
   }
 
+  // open/close buy window
+  public openBuy = () => {
+    this.handleIsMenuOpen();
+    this.isBuyOpen = true;
+  }
+
+  public closeBuy = () => {
+    this.isBuyOpen = false;
+  }
+
   // for Help pages
   public handlePageChange = (page: number) => {
     this.page = page;
@@ -115,6 +129,23 @@ export class GameStore {
     if (this.stake >= 0.40) {
       this.stake = Number((this.stake - 0.20).toFixed(2));
     }
+  }
+
+  // for Buy window
+  public handleBuyIncrease = () => {
+    if (this.buySum <= 900) {
+      this.buySum += 100;
+    }
+  }
+
+  public handleBuyDecrease = () => {
+    if (this.buySum >= 100) {
+      this.buySum -= 100;
+    }
+  }
+
+  public buyCurrency = () => {
+    this.balance += this.buySum;
   }
 
   // generate slots

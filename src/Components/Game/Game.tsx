@@ -9,6 +9,7 @@ import { StoreContext, store, useStore } from "../../stores/store";
 import { observer } from "mobx-react";
 import { OpenMenu } from "../Header/Menu/OpenMenu";
 import { Win } from "../Header/Win";
+import { Buy } from "../Buy/Buy";
 
 export const Game = observer(() => {
   const { AppStore, GameStore } = useStore();
@@ -37,6 +38,7 @@ export const Game = observer(() => {
             : <OpenMenu />
           }
           { GameStore.isHelpOpen && <Help /> }
+          { GameStore.isBuyOpen && <Buy /> }
         </Container>
       </Container>
     </StoreContext.Provider>

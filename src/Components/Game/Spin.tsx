@@ -8,7 +8,7 @@ export const Spin = observer(() => {
   const { AppStore, GameStore } = useStore();
   const positionX = AppStore.isLargeScreen ? AppStore.width - 240 : AppStore.width - 120;
   const positionY = AppStore.isMediumScreen ? AppStore.height - 114 : AppStore.height - 80;
-  const textStyle = createTextStyle("button");
+  const textStyle = AppStore.isSmallScreen ? createTextStyle("button") : createTextStyle("button", 26);
 
   React.useEffect(() => {
     if (GameStore.isActive) {
@@ -17,12 +17,12 @@ export const Spin = observer(() => {
   }, [GameStore.isActive])
 
   return (
-    <Container anchor={0.5} position={AppStore.isMediumScreen ? [positionX, positionY] : [AppStore.width / 2, AppStore.height - 160]}>
+    <Container anchor={0.5} position={AppStore.isMediumScreen ? [positionX, positionY] : AppStore.isSmallScreen ? [AppStore.width / 2, AppStore.height - 160] : [AppStore.width / 2, AppStore.height - 200]}>
       <Graphics
         draw={(g) => {
           g.clear();
           g.beginFill(0x12121C);
-          g.drawCircle(0, 0, AppStore.isMediumScreen ? 100 : 70);
+          g.drawCircle(0, 0, AppStore.isMediumScreen ? 100 : AppStore.isSmallScreen ? 70 : 50);
           g.endFill();
         }}
         cursor={GameStore.isMenuOpen || GameStore.isHelpOpen ? "auto" : "pointer"}

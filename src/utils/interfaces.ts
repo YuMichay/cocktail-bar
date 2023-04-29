@@ -13,6 +13,7 @@ export interface IImageStore {
     exitImage: string;
     homeImage: string;
     helpImage: string;
+    buyImage: string;
     arrowLeft: string;
     arrowRight: string;
     plusImage: string;
@@ -43,9 +44,11 @@ export interface IHomePageStore {
 export interface IGameStore {
   balance: number;
   stake: number;
+  buySum: number;
   win: string;
   isMenuOpen: boolean;
   isHelpOpen: boolean;
+  isBuyOpen: boolean;
   page: number;
   isFullscreenOn: boolean;
   isVolumeOn: boolean;
@@ -67,9 +70,14 @@ export interface IGameStore {
   handleIsMenuOpen: () => void;
   openHelp: () => void;
   closeHelp: () => void;
+  openBuy: () => void;
+  closeBuy: () => void;
   handlePageChange: (page: number) => void;
   handleIncrease: () => void;
   handleDecrease: () => void;
+  handleBuyIncrease: () => void;
+  handleBuyDecrease: () => void;
+  buyCurrency: () => void;
   generateSlotsSources: () => void;
   checkWin: () => void;
   spin: () => void;

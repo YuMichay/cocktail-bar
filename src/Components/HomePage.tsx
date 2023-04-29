@@ -6,8 +6,8 @@ import { observer } from "mobx-react";
 import { useStore } from "../stores/store";
 
 export const HomePage = observer(() => {
-  const buttonStyle = createTextStyle("button");
   const { ImageStore, AppStore, HomePageStore, changePage } = useStore();
+  const buttonStyle = AppStore.isSmallScreen ? createTextStyle("button") : createTextStyle("button", 30);
 
   // creation filter for image
   React.useEffect(() => {

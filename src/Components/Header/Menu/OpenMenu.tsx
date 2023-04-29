@@ -12,6 +12,7 @@ export const OpenMenu = observer(() => {
   const positionXExit = AppStore.isMediumScreen ? AppStore.width - 140 : AppStore.width - 40;
   const positionXHome = AppStore.isMediumScreen ? AppStore.width - 240 : AppStore.width - 140;
   const positionXHelp = AppStore.isMediumScreen ? AppStore.width - 245 : AppStore.width - 145;
+  const positionXBuy = AppStore.isMediumScreen ? AppStore.width - 248 : AppStore.width - 148;
 
   return (
   <Container>
@@ -65,6 +66,19 @@ export const OpenMenu = observer(() => {
         eventMode="dynamic"
         cursor="pointer"
         pointerdown={GameStore.openHelp}
+      />
+    </Container>
+    <Container>
+      <Sprite texture={Texture.from(ImageStore.images.buyImage)} x={positionX} y={160} anchor={0.5} />
+      <Text
+        text="Buy"
+        style={textStyle}
+        x={positionXBuy}
+        y={160}
+        anchor={0.5}
+        eventMode="dynamic"
+        cursor="pointer"
+        pointerdown={GameStore.openBuy}
       />
     </Container>
   </Container>

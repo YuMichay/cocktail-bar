@@ -6,12 +6,12 @@ import { useStore } from "../../stores/store";
 
 export const Stake = observer(() => {
   const { ImageStore, AppStore, GameStore } = useStore();
-  const textStyle = createTextStyle("string", "bold");
+  const textStyle = createTextStyle("string", 16, "bold");
   const borderStyle = createGlowFilter(2);
   const positionX = AppStore.isLargeScreen ? 140 : 40;
 
   return (
-    <Container position={[AppStore.isMediumScreen ? positionX : AppStore.width / 2 - 80, AppStore.height - 70]}>
+    <Container position={[AppStore.isMediumScreen ? positionX : AppStore.width / 2 - 80, AppStore.isSmallScreen ? AppStore.height - 70 : AppStore.height - 120]}>
       <Graphics
           draw={(g) => {
             g.clear();

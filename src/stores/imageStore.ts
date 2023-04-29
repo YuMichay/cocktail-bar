@@ -19,6 +19,7 @@ export class ImageStore {
       exitImage: "assets/x.svg",
       homeImage: "assets/home.svg",
       helpImage: "assets/help-circle.svg",
+      buyImage: "assets/shopping-bag.svg",
       arrowLeft: "assets/arrow-left-circle.svg",
       arrowRight: "assets/arrow-right-circle.svg",
       plusImage: "assets/plus-circle.svg",

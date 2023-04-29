@@ -7,7 +7,7 @@ import { observer } from "mobx-react";
 
 export const Rules = observer(() => {
   const { ImageStore, AppStore, GameStore } = useStore();
-  const textStyle = AppStore.isSmallScreen ? createTextStyle("string") : createTextStyle("string", "normal", "14");
+  const textStyle = AppStore.isSmallScreen ? createTextStyle("string") : createTextStyle("string", 14);
   const text = AppStore.isSmallScreen ? pageText : smallPageText;
   const pages = AppStore.isSmallScreen ? 2 : 4;
   const width = AppStore.isMediumScreen ? AppStore.width / 2.4 : AppStore.isSmallScreen ? AppStore.width / 2 : AppStore.width - 120;
