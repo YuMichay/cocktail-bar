@@ -73,6 +73,7 @@ export const Buy = observer(() => {
             height={80}
             anchor={0.5}
             tint={0x000000}
+            cursor="pointer"
             interactive={GameStore.stake > 0 && GameStore.stake <= 1000}
             pointerdown={GameStore.buyCurrency}
           />
